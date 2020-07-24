@@ -30,6 +30,11 @@ class TreeViewMulti : public Gtk::TreeView {
 	virtual void on_drag_begin(const Glib::RefPtr<Gdk::DragContext> &context);
 public:
 	TreeViewMulti();
+    bool negate_pending(const Glib::RefPtr<Gtk::TreeModel>& model,
+                        const Gtk::TreeModel::Path& path,
+                        bool path_currently_selected) {
+        return !pending;
+    }
 };
 
 class Actions {

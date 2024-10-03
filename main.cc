@@ -127,6 +127,9 @@ std::list<OSD *> OSD::osd_stack;
 void Trace::start(Trace::Point p) {
 	last = p;
 	active = true;
+	// While it would be nice to hide the cursor during the stroke with
+	// XFixesHideCursor, this crashes Xorg ~0.05% of the time, at least
+	// when using NVIDIA.
 	//XFixesHideCursor(dpy, ROOT);
 	start_();
 }

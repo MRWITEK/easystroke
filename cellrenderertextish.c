@@ -190,8 +190,8 @@ static GtkCellEditable* cell_renderer_textish_real_start_editing (GtkCellRendere
                                                            GdkEvent* event,
                                                            GtkWidget* widget,
                                                            const gchar* path,
-                                                           GdkRectangle* background_area,
-                                                           GdkRectangle* cell_area,
+                                                           const GdkRectangle* background_area,
+                                                           const GdkRectangle* cell_area,
                                                            GtkCellRendererState flags);
 CellEditableAccel* cell_editable_accel_new (CellRendererTextish* parent,
                                             const gchar* path,
@@ -383,8 +383,8 @@ cell_renderer_textish_real_start_editing (GtkCellRenderer* base,
                                           GdkEvent* event,
                                           GtkWidget* widget,
                                           const gchar* path,
-                                          GdkRectangle* background_area,
-                                          GdkRectangle* cell_area,
+                                          const GdkRectangle* background_area,
+                                          const GdkRectangle* cell_area,
                                           GtkCellRendererState flags)
 {
 	CellRendererTextish * self;
@@ -523,7 +523,7 @@ cell_renderer_textish_class_init (CellRendererTextishClass * klass)
 {
 	cell_renderer_textish_parent_class = g_type_class_peek_parent (klass);
 	g_type_class_add_private (klass, sizeof (CellRendererTextishPrivate));
-	((GtkCellRendererClass *) klass)->start_editing = (GtkCellEditable* (*) (GtkCellRenderer*, GdkEvent*, GtkWidget*, const gchar*, GdkRectangle*, GdkRectangle*, GtkCellRendererState)) cell_renderer_textish_real_start_editing;
+	((GtkCellRendererClass *) klass)->start_editing = (GtkCellEditable* (*) (GtkCellRenderer*, GdkEvent*, GtkWidget*, const gchar*, const GdkRectangle*, const GdkRectangle*, GtkCellRendererState)) cell_renderer_textish_real_start_editing;
 	G_OBJECT_CLASS (klass)->finalize = cell_renderer_textish_finalize;
 	cell_renderer_textish_signals[CELL_RENDERER_TEXTISH_KEY_EDITED_SIGNAL] = g_signal_new ("key-edited", TYPE_CELL_RENDERER_TEXTISH, G_SIGNAL_RUN_LAST, 0, NULL, NULL, g_cclosure_user_marshal_VOID__STRING_FLAGS_UINT, G_TYPE_NONE, 3, G_TYPE_STRING, gdk_modifier_type_get_type (), G_TYPE_UINT);
 	cell_renderer_textish_signals[CELL_RENDERER_TEXTISH_COMBO_EDITED_SIGNAL] = g_signal_new ("combo-edited", TYPE_CELL_RENDERER_TEXTISH, G_SIGNAL_RUN_LAST, 0, NULL, NULL, g_cclosure_user_marshal_VOID__STRING_UINT, G_TYPE_NONE, 2, G_TYPE_STRING, G_TYPE_UINT);
